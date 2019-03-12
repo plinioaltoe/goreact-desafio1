@@ -1,11 +1,13 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
-import Button from './Button';
+import Header from './Header';
+import Post from './Post';
 import './style.scss';
+import { content } from './content';
 
 class App extends Component {
   state = {
-    counter: 0,
+    posts: content,
   }
 
   handleClick = () => {
@@ -14,13 +16,14 @@ class App extends Component {
   }
 
   render() {
-    const { counter } = this.state;
+    const { posts } = this.state;
     return (
-      <Fragment>
-        <h1>Hello World 2000</h1>
-        <h2>{counter}</h2>
-        <Button onClick={this.handleClick}>Enviar</Button>
-      </Fragment>
+      <div className="root">
+        <Header />
+        {posts.map(post => (
+          <Post nome={post.nome} texto={post.texto} tempo={post.tempo} />
+        ))}
+      </div>
     );
   }
 }

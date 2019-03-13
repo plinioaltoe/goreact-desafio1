@@ -8,11 +8,24 @@ import { content } from './content';
 class App extends Component {
   state = {
     posts: content,
+    newPost: null,
   }
 
-  handleClick = () => {
-    const { counter } = this.state;
-    this.setState({ counter: counter + 1 });
+  handleClick = (e) => {
+    const { posts, newPost } = this.state;
+    posts.push(newPost);
+    this.setState({ posts });
+    e.preventDefault();
+  }
+
+  handleChange = (e) => {
+    const newPost = {
+      texto: e.target.value,
+      tempo: 'há 2 minutos',
+      nome: 'Zé doido',
+      imagem: 'helton.png',
+    };
+    this.setState({ newPost });
   }
 
   render() {
@@ -21,8 +34,14 @@ class App extends Component {
       <div className="root">
         <Header />
         {posts.map(post => (
-          <Post nome={post.nome} texto={post.texto} tempo={post.tempo} />
+          <Post nome={post.nome} texto={post.texto} tempo={post.tempo} imagem={post.imagem} />
         ))}
+        <form onSubmit={this.handleClick}>
+          <div>Novo Post: </div>
+          <input type="text" onChange={this.handleChange} />
+
+          <input type="submit" value="Cadastrar" />
+        </form>
       </div>
     );
   }

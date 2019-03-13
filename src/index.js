@@ -33,8 +33,14 @@ class App extends Component {
     return (
       <div className="root">
         <Header />
-        {posts.map(post => (
-          <Post nome={post.nome} texto={post.texto} tempo={post.tempo} imagem={post.imagem} />
+        {posts.map((post, index) => (
+          <Post
+            nome={post.nome}
+            texto={post.texto}
+            tempo={post.tempo}
+            imagem={post.imagem}
+            key={String(index)}
+          />
         ))}
         <form onSubmit={this.handleClick}>
           <div>Novo Post: </div>
